@@ -74,7 +74,7 @@ function Admin() {
 
   // ADMIN CHECK
   const isAdmin =
-    userEmail === "benkhayalkareem98@gmail.com"
+    userEmail === "gaminghubcashier@gmail.com"
 
 
   if (!isAdmin) {

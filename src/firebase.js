@@ -11,25 +11,28 @@ import {
 
 const firebaseConfig = {
 
-  apiKey: "AIzaSyBqz46p8z7EWh63E3Hokh8J6BNpl0Zd894",
+  apiKey:
+    import.meta.env.VITE_FIREBASE_API_KEY,
 
-  authDomain: "gaming-hub-system.firebaseapp.com",
+  authDomain:
+    import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
 
-  projectId: "gaming-hub-system",
+  projectId:
+    import.meta.env.VITE_FIREBASE_PROJECT_ID,
 
-  storageBucket: "gaming-hub-system.firebasestorage.app",
+  storageBucket:
+    import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
 
-  messagingSenderId: "1076120854864",
+  messagingSenderId:
+    import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
 
-  appId: "1:1076120854864:web:43e0e08c60c7a757410c55"
-
-
+  appId:
+    import.meta.env.VITE_FIREBASE_APP_ID,
 }
 
 
 const app =
   initializeApp(firebaseConfig)
-
 
 export const db =
   getFirestore(app)
