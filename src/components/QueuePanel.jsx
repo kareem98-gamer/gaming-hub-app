@@ -1,33 +1,39 @@
-function QueuePanel({ queue }) {
+function QueuePanel({ queue, cancelQueue }) {
 
   return (
-    <div>
+    <div className="bg-zinc-900 p-4 rounded-xl">
 
-      <h2 className="text-2xl font-bold mb-4">
-        Queue
-      </h2>
+      <h2 className="text-xl mb-4">Queue</h2>
 
+      {queue.length === 0 && (
+        <p className="text-zinc-500">
+          No customers waiting
+        </p>
+      )}
 
-      <div className="bg-zinc-900 p-5 rounded-2xl">
+      <div className="space-y-2">
 
-        {queue.map((person) => (
+        {queue.map((q, index) => (
 
           <div
-            key={person.id}
-            className="border-b border-zinc-700 pb-4 mb-4"
+            key={q.id}
+            className="flex justify-between items-center bg-zinc-800 p-2 rounded"
           >
 
-            <h3 className="font-bold">
-              {person.name}
-            </h3>
+            <div>
+              <span className="font-bold mr-2">
+                #{index + 1}
+              </span>
 
-            <p className="text-zinc-400 text-sm">
-              Waiting for {person.console}
-            </p>
+              {q.name}
+            </div>
 
-            <p className="text-yellow-400 mt-2">
-              Estimated Wait: {person.wait}
-            </p>
+            <button
+              onClick={() => cancelQueue(q.id)}
+              className="bg-red-500 px-2 py-1 rounded"
+            >
+              Cancel
+            </button>
 
           </div>
 

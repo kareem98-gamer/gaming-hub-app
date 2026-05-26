@@ -1,46 +1,52 @@
 import {
+  BrowserRouter,
   Routes,
   Route,
-  Navigate,
+  Navigate
 } from "react-router-dom"
 
 import Dashboard from "./pages/Dashboard"
 import Analytics from "./pages/Analytics"
-import Receipts from "./pages/Receipts"
-import Admin from "./pages/Admin"
+import Inventory from "./pages/Inventory"
+
+import Login from "./components/Login"
 
 function App() {
 
   return (
 
-    <Routes>
+    <BrowserRouter>
 
-      <Route
-        path="/"
-        element={<Navigate to="/dashboard" />}
-      />
+      <Routes>
 
-      <Route
-        path="/dashboard"
-        element={<Dashboard />}
-      />
+        <Route
+          path="/login"
+          element={<Login />}
+        />
 
-      <Route
-        path="/analytics"
-        element={<Analytics />}
-      />
+        <Route
+          path="/dashboard"
+          element={<Dashboard />}
+        />
 
-      <Route
-        path="/receipts"
-        element={<Receipts />}
-      />
+        <Route
+          path="/analytics"
+          element={<Analytics />}
+        />
 
-      <Route
-        path="/admin"
-        element={<Admin />}
-      />
+        <Route
+          path="/inventory"
+          element={<Inventory />}
+        />
 
-    </Routes>
+        <Route
+          path="*"
+          element={<Navigate to="/login" />}
+        />
+
+      </Routes>
+
+    </BrowserRouter>
 
   )
 }

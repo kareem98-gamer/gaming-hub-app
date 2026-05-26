@@ -1,98 +1,74 @@
 import { useState } from "react"
-
-import {
-  signInWithEmailAndPassword,
-} from "firebase/auth"
-
+import { signInWithEmailAndPassword } from "firebase/auth"
 import { auth } from "../firebase"
+import { useNavigate } from "react-router-dom"
+import { getUserRole } from "../utils/getUserRole"
 
+function Login() {
 
-function Login({ setUser }) {
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
 
-  const [email, setEmail] =
-    useState("")
+  const navigate = useNavigate()
 
-  const [password, setPassword] =
-    useState("")
-
-  const [error, setError] =
-    useState("")
-
-
-  const handleLogin = async (e) => {
-
-    e.preventDefault()
+  const login = async () => {
 
     try {
 
-      const userCredential =
+      const userCred =
         await signInWithEmailAndPassword(
           auth,
           email,
           password
         )
 
-      setUser(userCredential.user)
+      const user = userCred.user
 
-    } catch (err) {
+      const role =
+        await getUserRole(user.uid)
 
-      setError("Invalid email or password")
+      console.log("Role:", role)
 
+      // same redirect for now
+      navigate("/dashboard")
+
+    } catch (error) {
+
+      alert(error.message)
     }
-
   }
 
-
   return (
-    <div className="min-h-screen bg-zinc-950 flex items-center justify-center text-white">
+    <div className="h-screen flex items-center justify-center bg-black text-white">
 
-      <form
-        onSubmit={handleLogin}
-        className="bg-zinc-900 p-8 rounded-2xl w-[400px] border border-zinc-800"
-      >
+      <div className="bg-zinc-900 p-6 rounded-xl w-80">
 
-        <h1 className="text-3xl font-bold mb-6 text-center">
-          Gaming Hub Login
+        <h1 className="text-xl mb-4">
+          Login
         </h1>
 
-
         <input
-          type="email"
+          className="w-full p-2 mb-2 text-black"
           placeholder="Email"
-          className="w-full p-3 rounded-xl bg-zinc-800 mb-4"
-          value={email}
-          onChange={(e) =>
-            setEmail(e.target.value)
-          }
+          onChange={(e) => setEmail(e.target.value)}
         />
 
-
         <input
+          className="w-full p-2 mb-4 text-black"
           type="password"
           placeholder="Password"
-          className="w-full p-3 rounded-xl bg-zinc-800 mb-4"
-          value={password}
-          onChange={(e) =>
-            setPassword(e.target.value)
-          }
+          onChange={(e) => setPassword(e.target.value)}
         />
 
-
-        {error && (
-          <p className="text-red-500 mb-4">
-            {error}
-          </p>
-        )}
-
-
         <button
-          type="submit"
-          className="w-full bg-green-500 text-black p-3 rounded-xl font-bold"
+          onClick={login}
+          className="w-full bg-blue-500 p-2 rounded"
         >
           Login
         </button>
 
-      </form>
+      </div>
+
     </div>
   )
 }
