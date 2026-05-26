@@ -15,8 +15,7 @@ function Login() {
 
       await signInWithEmailAndPassword(auth, email, password)
 
-      // TEMP FIX: force admin for now
-      localStorage.setItem("role", "admin")
+      localStorage.setItem("role", "admin") // temporary
 
       navigate("/dashboard")
 
@@ -34,13 +33,13 @@ function Login() {
         <h1 className="text-xl mb-4">Login</h1>
 
         <input
-          className="w-full p-2 mb-2 text-black"
+          className="w-full p-2 mb-2 bg-white text-black placeholder-gray-500"
           placeholder="Email"
           onChange={(e) => setEmail(e.target.value)}
         />
 
         <input
-          className="w-full p-2 mb-4 text-black"
+          className="w-full p-2 mb-4 bg-white text-black placeholder-gray-500"
           type="password"
           placeholder="Password"
           onChange={(e) => setPassword(e.target.value)}
