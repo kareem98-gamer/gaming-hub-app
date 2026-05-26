@@ -1,52 +1,47 @@
 import {
-  BrowserRouter,
   Routes,
   Route,
   Navigate
 } from "react-router-dom"
 
+import Login from "./components/Login"
+
 import Dashboard from "./pages/Dashboard"
 import Analytics from "./pages/Analytics"
 import Inventory from "./pages/Inventory"
-
-import Login from "./components/Login"
 
 function App() {
 
   return (
 
-    <BrowserRouter>
+    <Routes>
 
-      <Routes>
+      <Route
+        path="/login"
+        element={<Login />}
+      />
 
-        <Route
-          path="/login"
-          element={<Login />}
-        />
+      <Route
+        path="/dashboard"
+        element={<Dashboard />}
+      />
 
-        <Route
-          path="/dashboard"
-          element={<Dashboard />}
-        />
+      <Route
+        path="/analytics"
+        element={<Analytics />}
+      />
 
-        <Route
-          path="/analytics"
-          element={<Analytics />}
-        />
+      <Route
+        path="/inventory"
+        element={<Inventory />}
+      />
 
-        <Route
-          path="/inventory"
-          element={<Inventory />}
-        />
+      <Route
+        path="*"
+        element={<Navigate to="/login" />}
+      />
 
-        <Route
-          path="*"
-          element={<Navigate to="/login" />}
-        />
-
-      </Routes>
-
-    </BrowserRouter>
+    </Routes>
 
   )
 }
