@@ -1,23 +1,22 @@
 import { doc, getDoc } from "firebase/firestore"
 import { db } from "../firebase"
 
-export const getUserRole = async (uid) => {
+export async function getUserRole(uid) {
 
   try {
 
     const ref = doc(db, "users", uid)
     const snap = await getDoc(ref)
 
-    if (!snap.exists()) {
-      return "cashier"
+    if (snap.exists()) {
+      return snap.data().role
     }
 
-    return snap.data().role || "cashier"
+    return "cashier"
 
-  } catch (error) {
-
-    console.log("getUserRole error:", error)
-
+  } catch (err) {
+    console.log("Role error:", err)
     return "cashier"
   }
+
 }

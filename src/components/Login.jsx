@@ -2,7 +2,6 @@ import { useState } from "react"
 import { signInWithEmailAndPassword } from "firebase/auth"
 import { auth } from "../firebase"
 import { useNavigate } from "react-router-dom"
-import { getUserRole } from "../utils/getUserRole"
 
 function Login() {
 
@@ -14,26 +13,17 @@ function Login() {
 
     try {
 
-      const userCred =
-        await signInWithEmailAndPassword(
-          auth,
-          email,
-          password
-        )
+      await signInWithEmailAndPassword(auth, email, password)
 
-      const uid = userCred.user.uid
+      // TEMP FIX: force admin for now
+      localStorage.setItem("role", "admin")
 
-      const role = await getUserRole(uid)
-
-      // store role globally
-      localStorage.setItem("role", role)
-
-      // redirect
       navigate("/dashboard")
 
     } catch (err) {
       alert(err.message)
     }
+
   }
 
   return (
