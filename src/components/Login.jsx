@@ -8,7 +8,6 @@ function Login() {
 
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-
   const navigate = useNavigate()
 
   const login = async () => {
@@ -22,19 +21,18 @@ function Login() {
           password
         )
 
-      const user = userCred.user
+      const uid = userCred.user.uid
 
-      const role =
-        await getUserRole(user.uid)
+      const role = await getUserRole(uid)
 
-      console.log("Role:", role)
+      // store role globally
+      localStorage.setItem("role", role)
 
-      // same redirect for now
+      // redirect
       navigate("/dashboard")
 
-    } catch (error) {
-
-      alert(error.message)
+    } catch (err) {
+      alert(err.message)
     }
   }
 
@@ -43,9 +41,7 @@ function Login() {
 
       <div className="bg-zinc-900 p-6 rounded-xl w-80">
 
-        <h1 className="text-xl mb-4">
-          Login
-        </h1>
+        <h1 className="text-xl mb-4">Login</h1>
 
         <input
           className="w-full p-2 mb-2 text-black"
